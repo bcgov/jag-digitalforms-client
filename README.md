@@ -3,8 +3,8 @@
 A shared DIGITALFORMS client library
 
 Used by: 
-- 1. Digital Forms Reviews
-- 2. Digital Forms VIPS Integration 
+- Digital Forms Reviews
+- Digital Forms VIPS Integration 
 
 ## Usage
 
