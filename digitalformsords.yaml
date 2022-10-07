@@ -3,7 +3,7 @@ info:
   title: ORDS generated API for web
   version: 1.0.0
 host: dev.jag.gov.bc.ca
-basePath: "/ords/deva/rsdfrmords/web"
+basePath: "/ords/devh/rsdfrmords/web"
 schemes:
 - https
 produces:
@@ -229,7 +229,142 @@ paths:
         in: body
         required: true
         schema:
-          "$ref": "#/definitions/reviewTimeSlotRequest"
+          "$ref": "#/definitions/reviewTimeSlotRequest"  
+  "/digitalForm/v1/dfpayloads/{noticeNo}/{correlationId}":
+    get:
+      tags:
+      - DfPayloads
+      security:
+        - basicAuth: []
+      summary: Retrieve a payload from the Digital Forms staging table (Impoundment or Prohibition).  
+      parameters:
+      - name: noticeNo
+        in: path
+        description: Impoundment or Prohibition notice number. 
+        required: true
+        type: string
+      - name: correlationId
+        in: path
+        required: true
+        type: string
+        description: implicit
+        pattern: "^[^/]+$"
+      responses:
+        '200':
+          description: GET payload response
+          schema:
+            "$ref": "#/definitions/getDFPayloadServiceResponse"
+        '401':
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/digitalFormErrorResponse' 
+        '500':
+          description: internal server error 
+          schema:
+            $ref: '#/definitions/digitalFormErrorResponse'       
+    post:
+      tags:
+      - DfPayloads
+      security:
+        - basicAuth: []
+      summary: Create a new payload in the Digital Forms staging table (Impoundment or Prohibition).
+      parameters:
+      - name: noticeNo
+        in: path
+        description: Impoundment or Prohibition notice number. 
+        required: true
+        type: string
+      - name: correlationId
+        in: path
+        required: true
+        type: string
+        description: implicit
+        pattern: "^[^/]+$"
+      - name: payload
+        in: body
+        required: true
+        schema:
+          "$ref": '#/definitions/postDFPayloadServiceRequest'
+      responses:
+        '201':
+          description: POST Payload response 
+          schema:
+            "$ref": '#/definitions/postDFPayloadServiceResponse'
+        '401':
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/digitalFormErrorResponse' 
+        '500':
+          description: internal server error 
+          schema:
+            $ref: '#/definitions/digitalFormErrorResponse'                
+    put:
+      tags:
+      - DfPayloads
+      security:
+        - basicAuth: []
+      summary: Update a payload previously saved to the Digital Forms staging table (Impoundment or Prohibition).
+      parameters:
+      - name: noticeNo
+        in: path
+        description: Impoundment or Prohibition notice number. 
+        required: true
+        type: string
+      - name: correlationId
+        in: path
+        required: true
+        type: string
+        description: implicit
+        pattern: "^[^/]+$"
+      - name: payload
+        in: body
+        required: true
+        schema:
+          "$ref": '#/definitions/postDFPayloadServiceRequest'
+      responses:
+        '201':
+          description: PUT Payload response 
+          schema:
+            "$ref": '#/definitions/postDFPayloadServiceResponse' 
+        '401':
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/digitalFormErrorResponse' 
+        '500':
+          description: internal server error 
+          schema:
+            $ref: '#/definitions/digitalFormErrorResponse'             
+    delete:
+      tags:
+      - DfPayloads
+      security:
+        - basicAuth: []
+      summary: Delete a payload previously saved to the Digital Forms staging table (Impoundment or Prohibition).
+      parameters:
+      - name: noticeNo
+        in: path
+        description: Impoundment or Prohibition notice number. 
+        required: true
+        type: string
+      - name: correlationId
+        in: path
+        required: true
+        type: string
+        description: implicit
+        pattern: "^[^/]+$"
+      responses:
+        '201':
+          description: Delete Payload response 
+          schema:
+            "$ref": '#/definitions/postDFPayloadServiceResponse'
+        '401':
+          description: unauthorized
+          schema:
+            $ref: '#/definitions/digitalFormErrorResponse' 
+        '500':
+          description: internal server error 
+          schema:
+            $ref: '#/definitions/digitalFormErrorResponse'                                                  
 definitions:
   healthOrdsResponse:
     type: object
@@ -552,3 +687,34 @@ definitions:
         type: string
       review_end_dtm:
         type: string
+  getDFPayloadServiceResponse:
+      type: object
+      description: Digital Forms VI IRP Payload GET Response
+      properties:
+        noticeType:
+          type: string
+        payload:
+          type: object
+        active:
+          type: boolean
+        processed: 
+          type: boolean  
+  postDFPayloadServiceRequest:
+      type: object
+      description: Digital Forms Schema Payload Request
+      properties:
+        noticeNo: 
+          type: string
+        noticeTypeCd:
+          type: string
+        payload:
+          type: string
+        activeYN:
+          type: boolean
+        processedYN: 
+          type: boolean               
+  postDFPayloadServiceResponse:
+      type: object
+      properties:
+        status_message:
+          type: string 

@@ -2,6 +2,7 @@ package ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient;
 
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.ApplicationApi;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.AvailableTimeSlotsApi;
+import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.DfPayloadsApi;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.HealthApi;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.PaymentApi;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.handler.ApiClient;
@@ -9,6 +10,8 @@ import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.application.ApplicationS
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.application.ApplicationServiceImpl;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.health.HealthService;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.health.HealthServiceImpl;
+import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.payload.DfPayloadService;
+import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.payload.DfPayloadServiceImpl;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.payment.PaymentService;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.payment.PaymentServiceImpl;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.review.ReviewService;
@@ -89,6 +92,16 @@ public class AutoConfiguration {
 	@Bean
 	public ReviewService digitalFormsReviewService(AvailableTimeSlotsApi availableTimeSlotsApi) {
 		return new ReviewServiceImpl(availableTimeSlotsApi);
+	}
+	
+	@Bean
+	public DfPayloadsApi digitalFormsDFPayloadsApi(ApiClient apiClient) {
+		return new DfPayloadsApi(apiClient);
+	}
+	
+	@Bean
+	public DfPayloadService digitalFormsPayloadService(DfPayloadsApi dfPayloadsApi) {
+		return new DfPayloadServiceImpl(dfPayloadsApi);
 	}
 
 }
