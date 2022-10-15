@@ -13,6 +13,7 @@ import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.handler.ApiException
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.GetDFPayloadServiceResponse;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.PostDFPayloadServiceRequest;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.PostDFPayloadServiceResponse;
+import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.PutDFPayloadServiceRequest;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.payload.DfPayloadServiceImpl;
 
 /**
@@ -53,19 +54,19 @@ public class DFPayloadsServiceImplTest {
 		public void getWithValidResponse() throws ApiException {
 
 			GetDFPayloadServiceResponse successResponse = new GetDFPayloadServiceResponse();
-			successResponse.setActive(true);
+			successResponse.setActive("Y");
 			successResponse.setNoticeType("IRP");
 			successResponse.setPayload(dummyPayload);
-			successResponse.setProcessed(true);
+			successResponse.setProcessed("Y");
 
-			Mockito.when(DFPayloadsApiMock.digitalFormV1DfpayloadsNoticeNoCorrelationIdGet("91400824", "abcdef")).thenReturn(successResponse);
+			Mockito.when(DFPayloadsApiMock.digitalFormDfpayloadsV1NoticeNoGet("91400824")).thenReturn(successResponse);
 
 			GetDFPayloadServiceResponse result = service.getDFPayload("91400824", "abcdef");
 
 			Assertions.assertEquals(dummyPayload, result.getPayload());
 			Assertions.assertEquals("IRP", result.getNoticeType());
-			Assertions.assertEquals(true, result.getActive());
-			Assertions.assertEquals(true, result.getProcessed());
+			Assertions.assertEquals("Y", result.getActive());
+			Assertions.assertEquals("Y", result.getProcessed());
 		}
 		
 		@Test
@@ -74,7 +75,7 @@ public class DFPayloadsServiceImplTest {
 			PostDFPayloadServiceResponse successResponse = new PostDFPayloadServiceResponse();
 			successResponse.setStatusMessage("success");
 
-			Mockito.when(DFPayloadsApiMock.digitalFormV1DfpayloadsNoticeNoCorrelationIdDelete("91400824", "abcdef")).thenReturn(successResponse);
+			Mockito.when(DFPayloadsApiMock.digitalFormDfpayloadsV1NoticeNoDelete("91400824")).thenReturn(successResponse);
 
 			PostDFPayloadServiceResponse result = service.deleteDFPayload("91400824", "abcdef");
 
@@ -89,14 +90,14 @@ public class DFPayloadsServiceImplTest {
 			successResponse.setStatusMessage("success");
 			
 			PostDFPayloadServiceRequest request = new PostDFPayloadServiceRequest();
-			request.setActiveYN(true);
+			request.setActiveYN("Y");
 			request.setNoticeNo("91400824");
 			request.setPayload(dummyPayload);
-			request.setProcessedYN(true);
+			request.setProcessedYN("Y");
 
-			Mockito.when(DFPayloadsApiMock.digitalFormV1DfpayloadsNoticeNoCorrelationIdPost("91400824", "abcdef", request)).thenReturn(successResponse);
+			Mockito.when(DFPayloadsApiMock.digitalFormDfpayloadsV1Post(request)).thenReturn(successResponse);
 
-			PostDFPayloadServiceResponse result = service.postDFPayload("91400824", "abcdef", request);
+			PostDFPayloadServiceResponse result = service.postDFPayload("abcdef", request);
 
 			Assertions.assertEquals("success", result.getStatusMessage());
 
@@ -108,13 +109,12 @@ public class DFPayloadsServiceImplTest {
 			PostDFPayloadServiceResponse successResponse = new PostDFPayloadServiceResponse();
 			successResponse.setStatusMessage("success");
 			
-			PostDFPayloadServiceRequest request = new PostDFPayloadServiceRequest();
-			request.setActiveYN(true);
-			request.setNoticeNo("91400824");
+			PutDFPayloadServiceRequest request = new PutDFPayloadServiceRequest();
+			request.setActiveYN("Y");
 			request.setPayload(dummyPayload);
-			request.setProcessedYN(true);
+			request.setProcessedYN("Y");
 
-			Mockito.when(DFPayloadsApiMock.digitalFormV1DfpayloadsNoticeNoCorrelationIdPut("91400824", "abcdef", request)).thenReturn(successResponse);
+			Mockito.when(DFPayloadsApiMock.digitalFormDfpayloadsV1NoticeNoPut("91400824", request)).thenReturn(successResponse);
 
 			PostDFPayloadServiceResponse result = service.putDFPayload("91400824", "abcdef", request);
 
