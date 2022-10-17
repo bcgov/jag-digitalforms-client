@@ -677,9 +677,9 @@ definitions:
           type: string
         payload:
           type: object
-        active:
+        activeYN:
           type: string
-        processed: 
+        processedYN: 
           type: string  
   postDFPayloadServiceRequest:
       type: object
