@@ -8,6 +8,7 @@ import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.handler.ApiException
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.GetDFPayloadServiceResponse;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.PostDFPayloadServiceRequest;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.PostDFPayloadServiceResponse;
+import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.PutDFPayloadServiceRequest;
 
 /**
  * 
@@ -33,10 +34,10 @@ public class DfPayloadServiceImpl implements DfPayloadService {
 		
 		try {
 		
-			response = this.dfPayloadsApi.digitalFormV1DfpayloadsNoticeNoCorrelationIdGet(noticeNo, correlationId);
+			response = this.dfPayloadsApi.digitalFormDfpayloadsV1NoticeNoGet(noticeNo);
 
 		} catch (ApiException ex) {
-			logger.error("GET DFPayload threw an exception: " + ex.getMessage(), ex);
+			logger.error("{" + correlationId + "} ORDS GET DFPayload threw an exception: " + ex.getMessage() + " HTTP Status Code: " + ex.getCode(), ex);
 			throw ex;
 		}	
 			
@@ -44,17 +45,17 @@ public class DfPayloadServiceImpl implements DfPayloadService {
 	}
 
 	@Override
-	public PostDFPayloadServiceResponse postDFPayload(String noticeNo, String correlationId,
+	public PostDFPayloadServiceResponse postDFPayload(String correlationId,
 			PostDFPayloadServiceRequest request) throws ApiException {
 		
 		PostDFPayloadServiceResponse response;
 		
 		try {
 		
-			response = this.dfPayloadsApi.digitalFormV1DfpayloadsNoticeNoCorrelationIdPost(noticeNo, correlationId, request);
+			response = this.dfPayloadsApi.digitalFormDfpayloadsV1Post(request);
 		
 		} catch (ApiException ex) {
-			logger.error("POST DFPayload threw an exception: " + ex.getMessage(), ex);
+			logger.error("{" + correlationId + "} ORDS POST DFPayload threw an exception: " + ex.getMessage() + " HTTP Status Code: " + ex.getCode(), ex);
 			throw ex;
 		}	
 		
@@ -63,16 +64,16 @@ public class DfPayloadServiceImpl implements DfPayloadService {
 
 	@Override
 	public PostDFPayloadServiceResponse putDFPayload(String noticeNo, String correlationId,
-			PostDFPayloadServiceRequest request) throws ApiException {
+			PutDFPayloadServiceRequest request) throws ApiException {
 		
 		PostDFPayloadServiceResponse response;
 		
 		try {
 		
-			response = this.dfPayloadsApi.digitalFormV1DfpayloadsNoticeNoCorrelationIdPut(noticeNo, correlationId, request);
+			response = this.dfPayloadsApi.digitalFormDfpayloadsV1NoticeNoPut(noticeNo, request);
 		
 		} catch (ApiException ex) {
-			logger.error("PUT DFPayload threw an exception: " + ex.getMessage(), ex);
+			logger.error("{" + correlationId + "} ORDS PUT DFPayload threw an exception: " + ex.getMessage() + " HTTP Status Code: " + ex.getCode(), ex);
 			throw ex;
 		}	
 		
@@ -86,10 +87,10 @@ public class DfPayloadServiceImpl implements DfPayloadService {
 		
 		try {
 			
-			response = this.dfPayloadsApi.digitalFormV1DfpayloadsNoticeNoCorrelationIdDelete(noticeNo, correlationId);
+			response = this.dfPayloadsApi.digitalFormDfpayloadsV1NoticeNoDelete(noticeNo);
 		
 		} catch (ApiException ex) {
-			logger.error("DELETE DFPayload threw an exception: " + ex.getMessage(), ex);
+			logger.error("DELETE DFPayload threw an exception: " + ex.getMessage() + " HTTP Status Code: " + ex.getCode(), ex);
 			throw ex;
 		}		
 			

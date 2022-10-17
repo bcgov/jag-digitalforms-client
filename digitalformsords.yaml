@@ -230,7 +230,7 @@ paths:
         required: true
         schema:
           "$ref": "#/definitions/reviewTimeSlotRequest"  
-  "/digitalForm/v1/dfpayloads/{noticeNo}/{correlationId}":
+  "/digitalForm/dfpayloads-v1/{noticeNo}":
     get:
       tags:
       - DfPayloads
@@ -243,61 +243,23 @@ paths:
         description: Impoundment or Prohibition notice number. 
         required: true
         type: string
-      - name: correlationId
-        in: path
-        required: true
-        type: string
-        description: implicit
-        pattern: "^[^/]+$"
       responses:
         '200':
-          description: GET payload response
+          description: success
           schema:
             "$ref": "#/definitions/getDFPayloadServiceResponse"
         '401':
-          description: unauthorized
+          description: unauthorized (from SSG)
           schema:
-            $ref: '#/definitions/digitalFormErrorResponse' 
+            "$ref": '#/definitions/digitalFormErrorResponse' 
+        '404':
+          description: not found
+          schema:
+            "$ref": '#/definitions/digitalFormErrorResponse'     
         '500':
           description: internal server error 
           schema:
-            $ref: '#/definitions/digitalFormErrorResponse'       
-    post:
-      tags:
-      - DfPayloads
-      security:
-        - basicAuth: []
-      summary: Create a new payload in the Digital Forms staging table (Impoundment or Prohibition).
-      parameters:
-      - name: noticeNo
-        in: path
-        description: Impoundment or Prohibition notice number. 
-        required: true
-        type: string
-      - name: correlationId
-        in: path
-        required: true
-        type: string
-        description: implicit
-        pattern: "^[^/]+$"
-      - name: payload
-        in: body
-        required: true
-        schema:
-          "$ref": '#/definitions/postDFPayloadServiceRequest'
-      responses:
-        '201':
-          description: POST Payload response 
-          schema:
-            "$ref": '#/definitions/postDFPayloadServiceResponse'
-        '401':
-          description: unauthorized
-          schema:
-            $ref: '#/definitions/digitalFormErrorResponse' 
-        '500':
-          description: internal server error 
-          schema:
-            $ref: '#/definitions/digitalFormErrorResponse'                
+            "$ref": '#/definitions/digitalFormErrorResponse'
     put:
       tags:
       - DfPayloads
@@ -310,30 +272,28 @@ paths:
         description: Impoundment or Prohibition notice number. 
         required: true
         type: string
-      - name: correlationId
-        in: path
-        required: true
-        type: string
-        description: implicit
-        pattern: "^[^/]+$"
       - name: payload
         in: body
         required: true
         schema:
-          "$ref": '#/definitions/postDFPayloadServiceRequest'
+          "$ref": '#/definitions/putDFPayloadServiceRequest'
       responses:
         '201':
           description: PUT Payload response 
           schema:
             "$ref": '#/definitions/postDFPayloadServiceResponse' 
         '401':
-          description: unauthorized
+          description: unauthorized (from SSG)
           schema:
-            $ref: '#/definitions/digitalFormErrorResponse' 
+            "$ref": '#/definitions/digitalFormErrorResponse'    
+        '404':
+          description: not found
+          schema:
+            "$ref": '#/definitions/digitalFormErrorResponse'       
         '500':
           description: internal server error 
           schema:
-            $ref: '#/definitions/digitalFormErrorResponse'             
+            "$ref": '#/definitions/digitalFormErrorResponse'
     delete:
       tags:
       - DfPayloads
@@ -346,25 +306,50 @@ paths:
         description: Impoundment or Prohibition notice number. 
         required: true
         type: string
-      - name: correlationId
-        in: path
-        required: true
-        type: string
-        description: implicit
-        pattern: "^[^/]+$"
       responses:
         '201':
           description: Delete Payload response 
           schema:
             "$ref": '#/definitions/postDFPayloadServiceResponse'
         '401':
-          description: unauthorized
+          description: unauthorized (from SSG)
+          schema:
+            $ref: '#/definitions/digitalFormErrorResponse'
+        '404':
+          description: not found
+          schema:
+            "$ref": '#/definitions/digitalFormErrorResponse'       
+        '500':
+          description: internal server error 
+          schema:
+            $ref: '#/definitions/digitalFormErrorResponse'                                         
+  "/digitalForm/dfpayloads-v1":                
+    post:
+      tags:
+      - DfPayloads
+      security:
+        - basicAuth: []
+      summary: Create a new payload in the Digital Forms staging table (Impoundment or Prohibition).
+      parameters:
+      - name: payload
+        in: body
+        description: Impoundment or Prohibition notice number. 
+        required: true
+        schema:
+          "$ref": '#/definitions/postDFPayloadServiceRequest'
+      responses:
+        '201':
+          description: created 
+          schema:
+            "$ref": '#/definitions/postDFPayloadServiceResponse'
+        '401':
+          description: unauthorized (from SSG) 
           schema:
             $ref: '#/definitions/digitalFormErrorResponse' 
         '500':
           description: internal server error 
           schema:
-            $ref: '#/definitions/digitalFormErrorResponse'                                                  
+            $ref: '#/definitions/digitalFormErrorResponse'                                                               
 definitions:
   healthOrdsResponse:
     type: object
@@ -631,11 +616,8 @@ definitions:
   digitalFormErrorResponse:
     type: object
     required:
-    - status_code
     - status_message
     properties:
-      status_code:
-        type: string
       status_message:
         type: string
   availableTimeSlotResponse:
@@ -696,9 +678,9 @@ definitions:
         payload:
           type: object
         active:
-          type: boolean
+          type: string
         processed: 
-          type: boolean  
+          type: string  
   postDFPayloadServiceRequest:
       type: object
       description: Digital Forms Schema Payload Request
@@ -710,11 +692,23 @@ definitions:
         payload:
           type: string
         activeYN:
-          type: boolean
+          type: string
         processedYN: 
-          type: boolean               
+          type: string               
   postDFPayloadServiceResponse:
       type: object
       properties:
         status_message:
-          type: string 
+          type: string
+  putDFPayloadServiceRequest:
+      type: object
+      description: Digital Forms Schema Payload Request
+      properties:
+        noticeTypeCd:
+          type: string
+        payload:
+          type: string
+        activeYN:
+          type: string
+        processedYN: 
+          type: string           
