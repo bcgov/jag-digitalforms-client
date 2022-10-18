@@ -54,10 +54,10 @@ public class DFPayloadsServiceImplTest {
 		public void getWithValidResponse() throws ApiException {
 
 			GetDFPayloadServiceResponse successResponse = new GetDFPayloadServiceResponse();
-			successResponse.setActive("Y");
+			successResponse.setActiveYN("Y");
 			successResponse.setNoticeType("IRP");
 			successResponse.setPayload(dummyPayload);
-			successResponse.setProcessed("Y");
+			successResponse.setProcessedYN("Y");
 
 			Mockito.when(DFPayloadsApiMock.digitalFormDfpayloadsV1NoticeNoGet("91400824")).thenReturn(successResponse);
 
@@ -65,8 +65,8 @@ public class DFPayloadsServiceImplTest {
 
 			Assertions.assertEquals(dummyPayload, result.getPayload());
 			Assertions.assertEquals("IRP", result.getNoticeType());
-			Assertions.assertEquals("Y", result.getActive());
-			Assertions.assertEquals("Y", result.getProcessed());
+			Assertions.assertEquals("Y", result.getActiveYN());
+			Assertions.assertEquals("Y", result.getProcessedYN());
 		}
 		
 		@Test
