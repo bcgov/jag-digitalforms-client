@@ -673,6 +673,8 @@ definitions:
       type: object
       description: Digital Forms VI IRP Payload GET Response
       properties:
+        noticeNo: 
+          type: string
         noticeType:
           type: string
         payload:
