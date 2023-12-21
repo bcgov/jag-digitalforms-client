@@ -11,7 +11,7 @@
 
 	<groupId>ca.bc.gov.open</groupId>
 	<artifactId>digitalforms-ords-client</artifactId>
-	<version>0.2.0</version>
+	<version>0.1.2</version>
 	<packaging>jar</packaging>
 	<name>digitalforms-ords-client</name>
 	<description>Java client for RoadSafetyBC DigitalForms database ORDS client</description>
@@ -270,7 +270,6 @@
 					</execution>
 				</executions>
 			</plugin>
-
 		</plugins>
 	</build>
 
