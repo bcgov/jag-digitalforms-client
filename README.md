@@ -17,7 +17,7 @@ Add the following dependency to your spring boot application
         <dependency>
             <groupId>ca.bc.gov.open</groupId>
             <artifactId>digitalforms-ords-client</artifactId>
-            <version>0.1.1</version>
+            <version>0.1.2</version>
         </dependency>
 
     </dependencies>
