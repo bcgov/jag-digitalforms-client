@@ -284,7 +284,7 @@
 					</execution>
 				</executions>
 				<configuration>
-					<file>target/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/handler/JSON.java</file>
+					<file>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/handler/JSON.java</file>
 					<replacements>
 						<replacement>
 							<token>DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true</token>
