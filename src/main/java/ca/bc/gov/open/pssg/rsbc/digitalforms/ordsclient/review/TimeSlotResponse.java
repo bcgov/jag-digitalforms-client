@@ -9,7 +9,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.DigitalFormsOrdsClientConstants;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.AvailableTimeSlotResponse;
-import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.AvailableTimeSlotResponseTimeSlots;
+import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.AvailableTimeSlotResponseTimeSlotsInner;
 
 /**
  * 
@@ -61,7 +61,7 @@ public class TimeSlotResponse {
 		this.respMsg = statusMessage;
 
 		List<TimeSlot> timeSlotList = new ArrayList<>();
-		for (AvailableTimeSlotResponseTimeSlots element : response.getTimeSlots()) {
+		for (AvailableTimeSlotResponseTimeSlotsInner element : response.getTimeSlots()) {
 			TimeSlot ts = new TimeSlot(element.getReviewStartDtm(), element.getReviewEndDtm());
 			timeSlotList.add(ts);
 		}

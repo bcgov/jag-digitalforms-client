@@ -18,7 +18,7 @@ import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.DigitalFormsOrdsClientCo
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.AvailableTimeSlotsApi;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.handler.ApiException;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.AvailableTimeSlotResponse;
-import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.AvailableTimeSlotResponseTimeSlots;
+import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.AvailableTimeSlotResponseTimeSlotsInner;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.ReviewTimeSlotRequest;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.ReviewTimeSlotResponse;
 
@@ -44,10 +44,10 @@ public class ReviewServiceImplTest {
 	public void setup() throws ApiException {
 		MockitoAnnotations.initMocks(this);
 
-		AvailableTimeSlotResponseTimeSlots timeSlot = new AvailableTimeSlotResponseTimeSlots();
+		AvailableTimeSlotResponseTimeSlotsInner timeSlot = new AvailableTimeSlotResponseTimeSlotsInner();
 		timeSlot.setReviewEndDtm("2018-05-01 10:30:00 -07:00");
 		timeSlot.setReviewStartDtm("2018-05-01 09:30:00 -07:00");
-		List<AvailableTimeSlotResponseTimeSlots> timeSlots = new ArrayList<>();
+		List<AvailableTimeSlotResponseTimeSlotsInner> timeSlots = new ArrayList<>();
 		timeSlots.add(timeSlot);
 		AvailableTimeSlotResponse timeSlotResponseSuccess = new AvailableTimeSlotResponse();
 		timeSlotResponseSuccess.setStatusCode(String.valueOf(DigitalFormsOrdsClientConstants.SERVICE_SUCCESS_CD));
