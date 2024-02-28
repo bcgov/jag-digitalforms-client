@@ -42,6 +42,8 @@ paths:
           description: output of the endpoint
           schema:
             $ref: '#/definitions/digitalFormErrorResponse'
+      consumes:
+      - application/json
       parameters:
       - name: payload
         in: body
@@ -86,6 +88,8 @@ paths:
           description: output of the endpoint
           schema:
             $ref: '#/definitions/digitalFormErrorResponse'
+      consumes:
+      - application/json
       parameters:
       - name: guid
         in: path
@@ -114,6 +118,8 @@ paths:
           description: output of the endpoint
           schema:
             $ref: '#/definitions/digitalFormErrorResponse'
+      consumes:
+      - application/json
       parameters:
       - name: applicationId
         in: path
@@ -266,6 +272,8 @@ paths:
       security:
         - basicAuth: []
       summary: Update a payload previously saved to the Digital Forms staging table (Impoundment or Prohibition).
+      consumes:
+      - application/json
       parameters:
       - name: noticeNo
         in: path
@@ -330,6 +338,8 @@ paths:
       security:
         - basicAuth: []
       summary: Create a new payload in the Digital Forms staging table (Impoundment or Prohibition).
+      consumes:
+      - application/json
       parameters:
       - name: payload
         in: body

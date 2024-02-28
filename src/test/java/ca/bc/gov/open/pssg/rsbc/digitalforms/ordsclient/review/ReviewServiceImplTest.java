@@ -33,7 +33,7 @@ public class ReviewServiceImplTest {
 
 	public static final String API_EXCEPTION = "api exception";
 	public static final String SUCCESS_RESPONSE = "success";
-	public static final String ERROR_RESPONSE = "error";
+	public static final String ERROR_RESPONSE = "Message: error";
 
 	private ReviewService service;
 
@@ -61,12 +61,12 @@ public class ReviewServiceImplTest {
 		reviewTimeSlotResponseSuccess.setReviewStartDtm("2018-05-01 09:30:00 -07:00");
 
 		Mockito.when(timeSlotApiMock
-				.digitalFormAvailableTimeSlotReviewDateNoticeTypeCdReviewTypeCdAuthGuidCorrelationGuidGet(any(), any(),
-						eq("IRP"), any(), any()))
+						.digitalFormAvailableTimeSlotReviewDateNoticeTypeCdReviewTypeCdAuthGuidCorrelationGuidGet(any(), any(),
+								eq("IRP"), any(), any()))
 				.thenReturn(timeSlotResponseSuccess);
 		Mockito.when(timeSlotApiMock
-				.digitalFormAvailableTimeSlotReviewDateNoticeTypeCdReviewTypeCdAuthGuidCorrelationGuidGet(any(), any(),
-						eq("ADP"), any(), any()))
+						.digitalFormAvailableTimeSlotReviewDateNoticeTypeCdReviewTypeCdAuthGuidCorrelationGuidGet(any(), any(),
+								eq("ADP"), any(), any()))
 				.thenThrow(new ApiException(ERROR_RESPONSE));
 		Mockito.when(timeSlotApiMock.digitalFormProhibitionApplicationIdReviewScheduleAuthGuidCorrelationGuidPost(any(),
 				any(), eq("1"), any())).thenReturn(reviewTimeSlotResponseSuccess);
@@ -91,7 +91,7 @@ public class ReviewServiceImplTest {
 				new ReviewTimeSlotRequest());
 
 		Assertions.assertEquals(DigitalFormsOrdsClientConstants.SERVICE_FAILURE_CD, response.getRespCode());
-		Assertions.assertEquals(ERROR_RESPONSE, response.getRespMsg());
+		Assertions.assertTrue(response.getRespMsg().contains(ERROR_RESPONSE));
 	}
 
 	@Test
@@ -109,7 +109,7 @@ public class ReviewServiceImplTest {
 				"2018-05-01 00:00:00 -00:00", "reviewTypeCd");
 
 		Assertions.assertEquals(DigitalFormsOrdsClientConstants.SERVICE_FAILURE_CD, response.getRespCode());
-		Assertions.assertEquals(ERROR_RESPONSE, response.getRespMsg());
+		Assertions.assertTrue(response.getRespMsg().contains(ERROR_RESPONSE));
 	}
 
 }

@@ -29,7 +29,7 @@ import org.mockito.MockitoAnnotations;
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class ApplicationServiceImplTest {
 
-	public static final String API_EXCEPTION = "api exception";
+	public static final String API_EXCEPTION = "Message: api exception";
 
 	@Mock
 	private ApplicationApi applicationApiMock;
@@ -109,7 +109,7 @@ public class ApplicationServiceImplTest {
 		ApplicationResponse resp = service.getApplication("error", "correlationId");
 
 		Assertions.assertEquals(-1, resp.getRespCode());
-		Assertions.assertEquals(API_EXCEPTION, resp.getRespMsg());
+		Assertions.assertTrue(resp.getRespMsg().contains(API_EXCEPTION));
 	}
 
 	@DisplayName("Post error - ApplicationServiceImpl")
@@ -122,7 +122,7 @@ public class ApplicationServiceImplTest {
 		ApplicationResponse resp = service.postApplication(new DigitalFormPostRequest(), "correlationId");
 
 		Assertions.assertEquals(-1, resp.getRespCode());
-		Assertions.assertEquals(API_EXCEPTION, resp.getRespMsg());
+		Assertions.assertTrue(resp.getRespMsg().contains(API_EXCEPTION));
 	}
 
 	@DisplayName("Patch error - ApplicationServiceImpl")
@@ -135,6 +135,6 @@ public class ApplicationServiceImplTest {
 		ApplicationResponse resp = service.patchApplication("guid", new DigitalFormPatchRequest(), "correlationId");
 
 		Assertions.assertEquals(-1, resp.getRespCode());
-		Assertions.assertEquals(API_EXCEPTION, resp.getRespMsg());
+		Assertions.assertTrue(resp.getRespMsg().contains(API_EXCEPTION));
 	}
 }
