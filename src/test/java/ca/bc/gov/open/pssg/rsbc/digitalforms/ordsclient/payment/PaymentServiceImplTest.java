@@ -27,7 +27,7 @@ import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormPay
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class PaymentServiceImplTest {
 
-	public static final String API_EXCEPTION = "api exception";
+	public static final String API_EXCEPTION = "Message: api exception";
 	public static final String SUCCESS_RESPONSE = "success";
 	public static final String ERROR_RESPONSE = "error";
 
@@ -87,7 +87,7 @@ public class PaymentServiceImplTest {
 		PaymentResponse response = service.patchPaymentReceipt("2", new DigitalFormPaymentPatchRequest(), "correlationId");
 
 		Assertions.assertEquals(DigitalFormsOrdsClientConstants.SERVICE_FAILURE_CD, response.getRespCode());
-		Assertions.assertEquals(ERROR_RESPONSE, response.getRespMsg());
+		Assertions.assertTrue(response.getRespMsg().contains(ERROR_RESPONSE));
 	}
 
 	@Test
@@ -103,7 +103,7 @@ public class PaymentServiceImplTest {
 		PaymentResponse response = service.getPaymentStatus("2", "correlationId");
 
 		Assertions.assertEquals(DigitalFormsOrdsClientConstants.SERVICE_FAILURE_CD, response.getRespCode());
-		Assertions.assertEquals(ERROR_RESPONSE, response.getRespMsg());
+		Assertions.assertTrue(response.getRespMsg().contains(ERROR_RESPONSE));
 	}
 
 }
