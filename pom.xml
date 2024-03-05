@@ -285,11 +285,31 @@
 					</execution>
 				</executions>
 				<configuration>
-					<file>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/handler/JSON.java</file>
+					<includes>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/DigitalFormGetResponse.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/VipsDisclosureSentOrdsRequest.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/AvailableTimeSlotResponse.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/AvailableTimeSlotResponseTimeSlotsInner.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/DigitalFormCreateResponse.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/DigitalFormErrorResponse.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/DigitalFormPatchRequest.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/DigitalFormPatchResponse.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/DigitalFormPaymentPatchRequest.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/DigitalFormPaymentPatchResponse.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/DigitalFormPaymentStatusResponse.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/DigitalFormPostRequest.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/GetDFPayloadServiceResponse.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/HealthOrdsResponse.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/PostDFPayloadServiceRequest.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/PostDFPayloadServiceResponse.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/PutDFPayloadServiceRequest.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/ReviewTimeSlotRequest.java</include>
+						<include>${project.build.directory}/generated-sources/openapi/src/main/java/ca/bc/gov/open/pssg/rsbc/digitalforms/ordsclient/api/model/ReviewTimeSlotResponse.java</include>
+					</includes>
 					<replacements>
 						<replacement>
-							<token>DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, true</token>
-							<value>DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES, false</value>
+							<token>validateJsonObject\(jsonObj\);</token>
+							<value></value>
 						</replacement>
 					</replacements>
 				</configuration>
