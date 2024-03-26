@@ -575,6 +575,10 @@ definitions:
         type: string
   availableTimeSlotResponse:
     type: object
+    required:
+      - status_code
+      - status_message
+      - time_slots
     properties:
       status_code:
         type: string
