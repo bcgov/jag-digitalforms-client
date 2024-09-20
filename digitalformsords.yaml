@@ -5,9 +5,9 @@ info:
 host: dev.jag.gov.bc.ca
 basePath: "/ords/devh/rsdfrmords/web"
 schemes:
-- https
+  - https
 produces:
-- application/json
+  - application/json
 securityDefinitions:
   basicAuth:
     type: basic
@@ -16,9 +16,9 @@ paths:
   "/health":
     get:
       tags:
-      - Health
+        - Health
       security:
-      - basicAuth: []
+        - basicAuth: []
       operationId: health
       description: Dummy endpoint to check that API calls are working
       responses:
@@ -29,9 +29,9 @@ paths:
   "/digitalForm":
     post:
       tags:
-      - Application
+        - Application
       security:
-      - basicAuth: []
+        - basicAuth: []
       description: Create digital form
       responses:
         '200':
@@ -43,19 +43,19 @@ paths:
           schema:
             $ref: '#/definitions/digitalFormErrorResponse'
       consumes:
-      - application/json
+        - application/json
       parameters:
-      - name: payload
-        in: body
-        required: true
-        schema:
-          "$ref": "#/definitions/digitalFormPostRequest"
+        - name: payload
+          in: body
+          required: true
+          schema:
+            "$ref": "#/definitions/digitalFormPostRequest"
   "/digitalForm/{guid}":
     get:
       tags:
-      - Application
+        - Application
       security:
-      - basicAuth: []
+        - basicAuth: []
       description: Get digital form
       responses:
         '200':
@@ -67,17 +67,17 @@ paths:
           schema:
             $ref: '#/definitions/digitalFormErrorResponse'
       parameters:
-      - name: guid
-        in: path
-        required: true
-        type: string
-        description: implicit
-        pattern: "^[^/]+$"
+        - name: guid
+          in: path
+          required: true
+          type: string
+          description: implicit
+          pattern: "^[^/]+$"
     patch:
       tags:
-      - Application
+        - Application
       security:
-      - basicAuth: []
+        - basicAuth: []
       description: Patch digital form
       responses:
         '200':
@@ -88,26 +88,53 @@ paths:
           description: output of the endpoint
           schema:
             $ref: '#/definitions/digitalFormErrorResponse'
+        '500':
+          description: output of the endpoint
+          schema:
+            $ref: '#/definitions/digitalFormErrorResponse'
       consumes:
-      - application/json
+        - application/json
       parameters:
-      - name: guid
-        in: path
-        required: true
-        type: string
-        description: implicit
-        pattern: "^[^/]+$"
-      - name: payload
-        in: body
-        required: true
-        schema:
-          "$ref": "#/definitions/digitalFormPatchRequest"
+        - name: guid
+          in: path
+          required: true
+          type: string
+          description: implicit
+          pattern: "^[^/]+$"
+        - name: payload
+          in: body
+          required: true
+          schema:
+            "$ref": "#/definitions/digitalFormPatchRequest"
+  "/digitalForm/notice/{guid}":
+    get:
+      tags:
+        - Application
+      security:
+        - basicAuth: []
+      description: Get digital form id from notice id (GUID))
+      responses:
+        '200':
+          description: output of the endpoint
+          schema:
+            "$ref": "#/definitions/digitalFormNoticeGetResponse"
+        '400':
+          description: output of the endpoint
+          schema:
+            $ref: '#/definitions/digitalFormErrorResponse'
+      parameters:
+        - name: guid
+          in: path
+          required: true
+          type: string
+          description: implicit
+          pattern: "^[^/]+$"
   "/digitalForm/prohibition/{applicationId}/payment":
     patch:
       tags:
-      - Payment
+        - Payment
       security:
-      - basicAuth: []
+        - basicAuth: []
       description: Patch payment details
       responses:
         '200':
@@ -119,25 +146,25 @@ paths:
           schema:
             $ref: '#/definitions/digitalFormErrorResponse'
       consumes:
-      - application/json
+        - application/json
       parameters:
-      - name: applicationId
-        in: path
-        required: true
-        type: string
-        description: implicit
-        pattern: "^[^/]+$"
-      - name: payload
-        in: body
-        required: true
-        schema:
-          "$ref": "#/definitions/digitalFormPaymentPatchRequest"
+        - name: applicationId
+          in: path
+          required: true
+          type: string
+          description: implicit
+          pattern: "^[^/]+$"
+        - name: payload
+          in: body
+          required: true
+          schema:
+            "$ref": "#/definitions/digitalFormPaymentPatchRequest"
   "/digitalForm/prohibition/{applicationId}/payment/status":
     get:
       tags:
-      - Payment
+        - Payment
       security:
-      - basicAuth: []
+        - basicAuth: []
       description: Get payment status
       responses:
         '200':
@@ -149,18 +176,18 @@ paths:
           schema:
             $ref: '#/definitions/digitalFormErrorResponse'
       parameters:
-      - name: applicationId
-        in: path
-        required: true
-        type: string
-        description: implicit
-        pattern: "^[^/]+$"
+        - name: applicationId
+          in: path
+          required: true
+          type: string
+          description: implicit
+          pattern: "^[^/]+$"
   "/digitalForm/availableTimeSlot/{reviewDate}/{noticeTypeCd}/{reviewTypeCd}/{authGuid}/{correlationGuid}":
     get:
       tags:
-      - Available Time Slots
+        - Available Time Slots
       security:
-      - basicAuth: []
+        - basicAuth: []
       description: Get available time slots for a date
       responses:
         '200':
@@ -168,42 +195,42 @@ paths:
           schema:
             "$ref": "#/definitions/availableTimeSlotResponse"
       parameters:
-      - name: authGuid
-        in: path
-        required: true
-        type: string
-        description: implicit
-        pattern: "^[^/]+$"
-      - name: correlationGuid
-        in: path
-        required: true
-        type: string
-        description: implicit
-        pattern: "^[^/]+$"
-      - name: noticeTypeCd
-        in: path
-        required: true
-        type: string
-        description: implicit
-        pattern: "^[^/]+$"
-      - name: reviewDate
-        in: path
-        required: true
-        type: string
-        description: implicit
-        pattern: "^[^/]+$"
-      - name: reviewTypeCd
-        in: path
-        required: true
-        type: string
-        description: implicit
-        pattern: "^[^/]+$"
+        - name: authGuid
+          in: path
+          required: true
+          type: string
+          description: implicit
+          pattern: "^[^/]+$"
+        - name: correlationGuid
+          in: path
+          required: true
+          type: string
+          description: implicit
+          pattern: "^[^/]+$"
+        - name: noticeTypeCd
+          in: path
+          required: true
+          type: string
+          description: implicit
+          pattern: "^[^/]+$"
+        - name: reviewDate
+          in: path
+          required: true
+          type: string
+          description: implicit
+          pattern: "^[^/]+$"
+        - name: reviewTypeCd
+          in: path
+          required: true
+          type: string
+          description: implicit
+          pattern: "^[^/]+$"
   "/digitalForm/prohibition/{applicationId}/review/schedule/{authGuid}/{correlationGuid}":
     post:
       tags:
-      - Available Time Slots
+        - Available Time Slots
       security:
-      - basicAuth: []
+        - basicAuth: []
       description: Save a review date time
       responses:
         '200':
@@ -211,44 +238,44 @@ paths:
           schema:
             "$ref": "#/definitions/reviewTimeSlotResponse"
       consumes:
-      - application/json
+        - application/json
       parameters:
-      - name: authGuid
-        in: path
-        required: true
-        type: string
-        description: implicit
-        pattern: "^[^/]+$"
-      - name: correlationGuid
-        in: path
-        required: true
-        type: string
-        description: implicit
-        pattern: "^[^/]+$"
-      - name: applicationId
-        in: path
-        required: true
-        type: string
-        description: implicit
-        pattern: "^[^/]+$"
-      - name: payload
-        in: body
-        required: true
-        schema:
-          "$ref": "#/definitions/reviewTimeSlotRequest"  
+        - name: authGuid
+          in: path
+          required: true
+          type: string
+          description: implicit
+          pattern: "^[^/]+$"
+        - name: correlationGuid
+          in: path
+          required: true
+          type: string
+          description: implicit
+          pattern: "^[^/]+$"
+        - name: applicationId
+          in: path
+          required: true
+          type: string
+          description: implicit
+          pattern: "^[^/]+$"
+        - name: payload
+          in: body
+          required: true
+          schema:
+            "$ref": "#/definitions/reviewTimeSlotRequest"
   "/digitalForm/dfpayloads-v1/{noticeNo}":
     get:
       tags:
-      - DfPayloads
+        - DfPayloads
       security:
         - basicAuth: []
-      summary: Retrieve a payload from the Digital Forms staging table (Impoundment or Prohibition).  
+      summary: Retrieve a payload from the Digital Forms staging table (Impoundment or Prohibition).
       parameters:
-      - name: noticeNo
-        in: path
-        description: Impoundment or Prohibition notice number. 
-        required: true
-        type: string
+        - name: noticeNo
+          in: path
+          description: Impoundment or Prohibition notice number.
+          required: true
+          type: string
       responses:
         '200':
           description: success
@@ -257,66 +284,66 @@ paths:
         '401':
           description: unauthorized (from SSG)
           schema:
-            "$ref": '#/definitions/digitalFormErrorResponse' 
+            "$ref": '#/definitions/digitalFormErrorResponse'
         '404':
           description: not found
           schema:
-            "$ref": '#/definitions/digitalFormErrorResponse'     
+            "$ref": '#/definitions/digitalFormErrorResponse'
         '500':
-          description: internal server error 
+          description: internal server error
           schema:
             "$ref": '#/definitions/digitalFormErrorResponse'
     put:
       tags:
-      - DfPayloads
+        - DfPayloads
       security:
         - basicAuth: []
       summary: Update a payload previously saved to the Digital Forms staging table (Impoundment or Prohibition).
       consumes:
-      - application/json
+        - application/json
       parameters:
-      - name: noticeNo
-        in: path
-        description: Impoundment or Prohibition notice number. 
-        required: true
-        type: string
-      - name: payload
-        in: body
-        required: true
-        schema:
-          "$ref": '#/definitions/putDFPayloadServiceRequest'
+        - name: noticeNo
+          in: path
+          description: Impoundment or Prohibition notice number.
+          required: true
+          type: string
+        - name: payload
+          in: body
+          required: true
+          schema:
+            "$ref": '#/definitions/putDFPayloadServiceRequest'
       responses:
         '201':
-          description: PUT Payload response 
+          description: PUT Payload response
           schema:
-            "$ref": '#/definitions/postDFPayloadServiceResponse' 
+            "$ref": '#/definitions/postDFPayloadServiceResponse'
         '401':
           description: unauthorized (from SSG)
           schema:
-            "$ref": '#/definitions/digitalFormErrorResponse'    
+            "$ref": '#/definitions/digitalFormErrorResponse'
         '404':
           description: not found
           schema:
-            "$ref": '#/definitions/digitalFormErrorResponse'       
+            "$ref": '#/definitions/digitalFormErrorResponse'
         '500':
-          description: internal server error 
+          description: internal server error
           schema:
             "$ref": '#/definitions/digitalFormErrorResponse'
     delete:
       tags:
-      - DfPayloads
+        - DfPayloads
       security:
         - basicAuth: []
       summary: Delete a payload previously saved to the Digital Forms staging table (Impoundment or Prohibition).
       parameters:
-      - name: noticeNo
-        in: path
-        description: Impoundment or Prohibition notice number. 
-        required: true
-        type: string
+        - name: noticeNo
+          in: path
+          description: Impoundment or Prohibition notice number.
+          required: true
+          type: string
       responses:
         '201':
-          description: Delete Payload response 
+          description: Delete Payload response
           schema:
             "$ref": '#/definitions/postDFPayloadServiceResponse'
         '401':
@@ -326,40 +353,40 @@ paths:
         '404':
           description: not found
           schema:
-            "$ref": '#/definitions/digitalFormErrorResponse'       
+            "$ref": '#/definitions/digitalFormErrorResponse'
         '500':
-          description: internal server error 
+          description: internal server error
           schema:
-            $ref: '#/definitions/digitalFormErrorResponse'                                         
-  "/digitalForm/dfpayloads-v1":                
+            $ref: '#/definitions/digitalFormErrorResponse'
+  "/digitalForm/dfpayloads-v1":
     post:
       tags:
-      - DfPayloads
+        - DfPayloads
       security:
         - basicAuth: []
       summary: Create a new payload in the Digital Forms staging table (Impoundment or Prohibition).
       consumes:
-      - application/json
+        - application/json
       parameters:
-      - name: payload
-        in: body
-        description: Impoundment or Prohibition notice number. 
-        required: true
-        schema:
-          "$ref": '#/definitions/postDFPayloadServiceRequest'
+        - name: payload
+          in: body
+          description: Impoundment or Prohibition notice number.
+          required: true
+          schema:
+            "$ref": '#/definitions/postDFPayloadServiceRequest'
       responses:
         '201':
-          description: created 
+          description: created
           schema:
             "$ref": '#/definitions/postDFPayloadServiceResponse'
         '401':
-          description: unauthorized (from SSG) 
+          description: unauthorized (from SSG)
           schema:
-            $ref: '#/definitions/digitalFormErrorResponse' 
+            $ref: '#/definitions/digitalFormErrorResponse'
         '500':
-          description: internal server error 
+          description: internal server error
           schema:
-            $ref: '#/definitions/digitalFormErrorResponse'                                                               
+            $ref: '#/definitions/digitalFormErrorResponse'
 definitions:
   healthOrdsResponse:
     type: object
@@ -511,6 +538,13 @@ definitions:
         type: string
       form_xml:
         type: string
+  digitalFormNoticeGetResponse:
+    type: object
+    properties:
+      form_object_guid:
+        type: string
+      form_exists:
+        type: string
   digitalFormCreateResponse:
     type: object
     properties:
@@ -614,47 +648,47 @@ definitions:
       review_end_dtm:
         type: string
   getDFPayloadServiceResponse:
-      type: object
-      description: Digital Forms VI IRP Payload GET Response
-      properties:
-        noticeNo: 
-          type: string
-        noticeType:
-          type: string
-        payload:
-          type: object
-        activeYN:
-          type: string
-        processedYN: 
-          type: string  
+    type: object
+    description: Digital Forms VI IRP Payload GET Response
+    properties:
+      noticeNo:
+        type: string
+      noticeType:
+        type: string
+      payload:
+        type: object
+      activeYN:
+        type: string
+      processedYN:
+        type: string
   postDFPayloadServiceRequest:
-      type: object
-      description: Digital Forms Schema Payload Request
-      properties:
-        noticeNo: 
-          type: string
-        noticeTypeCd:
-          type: string
-        payload:
-          type: string
-        activeYN:
-          type: string
-        processedYN: 
-          type: string               
+    type: object
+    description: Digital Forms Schema Payload Request
+    properties:
+      noticeNo:
+        type: string
+      noticeTypeCd:
+        type: string
+      payload:
+        type: string
+      activeYN:
+        type: string
+      processedYN:
+        type: string
   postDFPayloadServiceResponse:
-      type: object
-      properties:
-        status_message:
-          type: string
+    type: object
+    properties:
+      status_message:
+        type: string
   putDFPayloadServiceRequest:
-      type: object
-      description: Digital Forms Schema Payload Request
-      properties:
-        noticeTypeCd:
-          type: string
-        payload:
-          type: string
-        activeYN:
-          type: string
-        processedYN: 
-          type: string           
+    type: object
+    description: Digital Forms Schema Payload Request
+    properties:
+      noticeTypeCd:
+        type: string
+      payload:
+        type: string
+      activeYN:
+        type: string
+      processedYN:
+        type: string
