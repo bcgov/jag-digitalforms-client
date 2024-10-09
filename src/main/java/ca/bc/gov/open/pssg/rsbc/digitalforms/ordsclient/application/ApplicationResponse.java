@@ -36,6 +36,9 @@ public class ApplicationResponse {
 	@JsonProperty("createdTime")
 	private String createdTime;
 
+	@JsonProperty("formExists")
+	private String formExists;
+
 	private ApplicationResponse(int respCode, String respMsg) {
 		this.respCode = respCode;
 		this.respMsg = respMsg;
@@ -91,6 +94,14 @@ public class ApplicationResponse {
 			String respMsg) {
 
 		return new ApplicationResponse(applicationInfo, Integer.parseInt(respCodeStr), respMsg);
+	}
+
+	public static ApplicationResponse successResponseExists(String formObjectGuid, String formExists) {
+		ApplicationResponse response = new ApplicationResponse(formObjectGuid,
+				DigitalFormsOrdsClientConstants.SERVICE_SUCCESS_CD,
+				DigitalFormsOrdsClientConstants.SERVICE_SUCCESS_MSG);
+		response.formExists = formExists;
+		return response;
 	}
 
 	public static ApplicationResponse successResponsePost(String applicationId, String respCodeStr, String respMsg,

@@ -2,6 +2,7 @@ package ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.application;
 
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormPatchRequest;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormPostRequest;
+import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormNoticeGetResponse;
 
 /**
  * Collection of services for applications.
@@ -15,5 +16,7 @@ public interface ApplicationService {
 	ApplicationResponse postApplication(DigitalFormPostRequest applicationInfo, String correlationId);
 
 	ApplicationResponse patchApplication(String formGuid, DigitalFormPatchRequest applicationInfo, String correlationId);
+
+	ApplicationResponse getApplicationExists(String noticeNo, String correlationId);
 
 }
