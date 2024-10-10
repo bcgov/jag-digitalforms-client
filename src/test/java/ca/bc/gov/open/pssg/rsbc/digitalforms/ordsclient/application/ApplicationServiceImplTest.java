@@ -4,11 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.ApplicationApi;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.handler.ApiException;
-import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormCreateResponse;
-import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormGetResponse;
-import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormPatchRequest;
-import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormPatchResponse;
-import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormPostRequest;
+import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.*;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -61,6 +57,22 @@ public class ApplicationServiceImplTest {
 		Assertions.assertEquals("John", resp.getApplicationInfo().getFirstGivenNm());
 		Assertions.assertEquals("Doe", resp.getApplicationInfo().getSecondGivenNm());
 		Assertions.assertEquals(1, resp.getRespCode());
+	}
+
+	@DisplayName("Exists success - ApplicationServiceImpl")
+	@Test
+	public void getApplicationExists() throws ApiException {
+
+		DigitalFormNoticeGetResponse response = new DigitalFormNoticeGetResponse();
+		response.setFormObjectGuid("guid");
+		response.setFormExists("true");
+
+		Mockito.when(applicationApiMock.digitalFormNoticeGuidGet("guid")).thenReturn(response);
+
+		ApplicationResponse resp = service.getApplicationExists("guid", "correlationId");
+
+		Assertions.assertEquals("guid", resp.getApplicationId());
+		Assertions.assertEquals("true", resp.getFormExists());
 	}
 
 	@DisplayName("Post success - ApplicationServiceImpl")

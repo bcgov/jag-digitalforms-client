@@ -86,6 +86,9 @@ public class ApplicationResponse {
 		this.createdTime = createdTime;
 	}
 
+	public String getFormExists() { return formExists; }
+	public void setFormExists(String formExists) { this.formExists = formExists; }
+
 	public static ApplicationResponse errorResponse(String errorMessage) {
 		return new ApplicationResponse(DigitalFormsOrdsClientConstants.SERVICE_FAILURE_CD, errorMessage);
 	}
@@ -100,7 +103,7 @@ public class ApplicationResponse {
 		ApplicationResponse response = new ApplicationResponse(formObjectGuid,
 				DigitalFormsOrdsClientConstants.SERVICE_SUCCESS_CD,
 				DigitalFormsOrdsClientConstants.SERVICE_SUCCESS_MSG);
-		response.formExists = formExists;
+		response.setFormExists(formExists);
 		return response;
 	}
 
