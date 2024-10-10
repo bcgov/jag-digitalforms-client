@@ -10,6 +10,7 @@ import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormGet
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormPatchRequest;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormPatchResponse;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormPostRequest;
+import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormNoticeGetResponse;
 
 /**
  * Application Service Implementation using ORDS services.
@@ -54,6 +55,20 @@ public class ApplicationServiceImpl implements ApplicationService {
 					response.getStatusMessage(), response.getUpdDtm());
 		} catch (ApiException ex) {
 			logger.error("Application Service Patch threw an exception: " + ex.getMessage(), ex);
+			return ApplicationResponse.errorResponse(ex.getMessage());
+		}
+	}
+
+	@Override
+	public ApplicationResponse getApplicationExists(String noticeNo, String correlationId) {
+		try {
+			DigitalFormNoticeGetResponse rep = this.applicationApi.digitalFormNoticeGuidGet(noticeNo);
+			logger.info("Processed Get Application Exists request: ORDS form_object_guid: {} and form_exists: {} ",
+					rep.getFormObjectGuid(), rep.getFormExists());
+			return ApplicationResponse.successResponseExists(rep.getFormObjectGuid(), rep.getFormExists());
+		}
+		catch (ApiException ex) {
+			logger.error("Application Service Get Application Exists threw an exception: " + ex.getMessage(), ex);
 			return ApplicationResponse.errorResponse(ex.getMessage());
 		}
 	}

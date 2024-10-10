@@ -16,4 +16,6 @@ public interface ApplicationService {
 
 	ApplicationResponse patchApplication(String formGuid, DigitalFormPatchRequest applicationInfo, String correlationId);
 
+	ApplicationResponse getApplicationExists(String noticeNo, String correlationId);
+
 }
