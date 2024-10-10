@@ -4,11 +4,7 @@ import static org.mockito.ArgumentMatchers.any;
 
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.ApplicationApi;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.handler.ApiException;
-import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormCreateResponse;
-import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormGetResponse;
-import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormPatchRequest;
-import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormPatchResponse;
-import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormPostRequest;
+import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.*;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;
@@ -63,6 +59,22 @@ public class ApplicationServiceImplTest {
 		Assertions.assertEquals(1, resp.getRespCode());
 	}
 
+	@DisplayName("Exists success - ApplicationServiceImpl")
+	@Test
+	public void getApplicationExistsSuccess() throws ApiException {
+
+		DigitalFormNoticeGetResponse response = new DigitalFormNoticeGetResponse();
+		response.setFormObjectGuid("guid");
+		response.setFormExists("true");
+
+		Mockito.when(applicationApiMock.digitalFormNoticeGuidGet("guid")).thenReturn(response);
+
+		ApplicationResponse resp = service.getApplicationExists("guid", "correlationId");
+
+		Assertions.assertEquals("guid", resp.getApplicationId());
+		Assertions.assertEquals("true", resp.getFormExists());
+	}
+
 	@DisplayName("Post success - ApplicationServiceImpl")
 	@Test
 	public void postApplicationSuccess() throws ApiException {
@@ -107,6 +119,18 @@ public class ApplicationServiceImplTest {
 		Mockito.when(applicationApiMock.digitalFormGuidGet("error")).thenThrow(new ApiException(API_EXCEPTION));
 
 		ApplicationResponse resp = service.getApplication("error", "correlationId");
+
+		Assertions.assertEquals(-1, resp.getRespCode());
+		Assertions.assertTrue(resp.getRespMsg().contains(API_EXCEPTION));
+	}
+
+	@DisplayName("Exists error - ApplicationServiceImpl")
+	@Test
+	public void getApplicationExistsError() throws ApiException {
+
+		Mockito.when(applicationApiMock.digitalFormNoticeGuidGet("error")).thenThrow(new ApiException(API_EXCEPTION));
+
+		ApplicationResponse resp = service.getApplicationExists("error", "correlationId");
 
 		Assertions.assertEquals(-1, resp.getRespCode());
 		Assertions.assertTrue(resp.getRespMsg().contains(API_EXCEPTION));

@@ -36,6 +36,9 @@ public class ApplicationResponse {
 	@JsonProperty("createdTime")
 	private String createdTime;
 
+	@JsonProperty("formExists")
+	private String formExists;
+
 	private ApplicationResponse(int respCode, String respMsg) {
 		this.respCode = respCode;
 		this.respMsg = respMsg;
@@ -83,6 +86,9 @@ public class ApplicationResponse {
 		this.createdTime = createdTime;
 	}
 
+	public String getFormExists() { return formExists; }
+	public void setFormExists(String formExists) { this.formExists = formExists; }
+
 	public static ApplicationResponse errorResponse(String errorMessage) {
 		return new ApplicationResponse(DigitalFormsOrdsClientConstants.SERVICE_FAILURE_CD, errorMessage);
 	}
@@ -91,6 +97,14 @@ public class ApplicationResponse {
 			String respMsg) {
 
 		return new ApplicationResponse(applicationInfo, Integer.parseInt(respCodeStr), respMsg);
+	}
+
+	public static ApplicationResponse successResponseExists(String formObjectGuid, String formExists) {
+		ApplicationResponse response = new ApplicationResponse(formObjectGuid,
+				DigitalFormsOrdsClientConstants.SERVICE_SUCCESS_CD,
+				DigitalFormsOrdsClientConstants.SERVICE_SUCCESS_MSG);
+		response.setFormExists(formExists);
+		return response;
 	}
 
 	public static ApplicationResponse successResponsePost(String applicationId, String respCodeStr, String respMsg,
