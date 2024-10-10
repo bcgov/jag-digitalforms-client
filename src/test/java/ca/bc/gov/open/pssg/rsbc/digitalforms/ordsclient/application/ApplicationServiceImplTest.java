@@ -61,7 +61,7 @@ public class ApplicationServiceImplTest {
 
 	@DisplayName("Exists success - ApplicationServiceImpl")
 	@Test
-	public void getApplicationExists() throws ApiException {
+	public void getApplicationExistsSuccess() throws ApiException {
 
 		DigitalFormNoticeGetResponse response = new DigitalFormNoticeGetResponse();
 		response.setFormObjectGuid("guid");
@@ -119,6 +119,18 @@ public class ApplicationServiceImplTest {
 		Mockito.when(applicationApiMock.digitalFormGuidGet("error")).thenThrow(new ApiException(API_EXCEPTION));
 
 		ApplicationResponse resp = service.getApplication("error", "correlationId");
+
+		Assertions.assertEquals(-1, resp.getRespCode());
+		Assertions.assertTrue(resp.getRespMsg().contains(API_EXCEPTION));
+	}
+
+	@DisplayName("Exists error - ApplicationServiceImpl")
+	@Test
+	public void getApplicationExistsError() throws ApiException {
+
+		Mockito.when(applicationApiMock.digitalFormNoticeGuidGet("error")).thenThrow(new ApiException(API_EXCEPTION));
+
+		ApplicationResponse resp = service.getApplicationExists("error", "correlationId");
 
 		Assertions.assertEquals(-1, resp.getRespCode());
 		Assertions.assertTrue(resp.getRespMsg().contains(API_EXCEPTION));

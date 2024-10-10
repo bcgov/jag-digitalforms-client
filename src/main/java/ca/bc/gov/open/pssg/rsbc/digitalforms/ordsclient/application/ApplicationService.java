@@ -2,7 +2,6 @@ package ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.application;
 
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormPatchRequest;
 import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormPostRequest;
-import ca.bc.gov.open.pssg.rsbc.digitalforms.ordsclient.api.model.DigitalFormNoticeGetResponse;
 
 /**
  * Collection of services for applications.
