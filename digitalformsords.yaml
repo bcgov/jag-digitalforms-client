@@ -442,6 +442,9 @@ definitions:
         type: string
       electronic_address_txt:
         type: string
+      alternate_electronic_addrs_txt:
+        type: string
+        maxLength: 254
       manual_entry_yn:
         type: string
       form_xml:
@@ -485,6 +488,9 @@ definitions:
         type: string
       electronic_address_txt:
         type: string
+      alternate_electronic_addrs_txt:
+        type: string
+        maxLength: 254
       manual_entry_yn:
         type: string
       form_xml:
@@ -534,6 +540,9 @@ definitions:
         type: string
       electronic_address_txt:
         type: string
+      alternate_electronic_addrs_txt:
+        type: string
+        maxLength: 254
       manual_entry_yn:
         type: string
       form_xml:
